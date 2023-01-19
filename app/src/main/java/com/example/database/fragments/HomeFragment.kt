@@ -9,13 +9,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.database.R
-import com.example.database.adapters.RvAction
 import com.example.database.adapters.RvAdapter
 import com.example.database.databinding.FragmentHomeBinding
 import com.example.database.db.MyDbHelper
 import com.example.database.models.MyContact
 
-class HomeFragment : Fragment(), RvAction {
+class HomeFragment : Fragment(), RvAdapter.RvAction, RvAdapter.RvClick {
     private val binding: FragmentHomeBinding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
     private lateinit var rvAdapter: RvAdapter
     private lateinit var myDbHelper: MyDbHelper
@@ -25,8 +24,9 @@ class HomeFragment : Fragment(), RvAction {
     ): View? {
         setHasOptionsMenu(true)
         myDbHelper = MyDbHelper(binding.root.context)
-        rvAdapter = RvAdapter(myDbHelper.getAllContacts() as ArrayList, this)
+        rvAdapter = RvAdapter(myDbHelper.getAllContacts() as ArrayList, this, this)
         binding.rv.adapter = rvAdapter
+
 
         return binding.root
     }
@@ -62,6 +62,10 @@ class HomeFragment : Fragment(), RvAction {
         }
 
         popupMenu.show()
+    }
+
+    override fun callAction(contact: MyContact, position: Int) {
+        
     }
 
 }
