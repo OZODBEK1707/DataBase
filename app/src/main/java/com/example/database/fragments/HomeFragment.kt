@@ -1,10 +1,14 @@
 package com.example.database.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceFragment.OnPreferenceStartFragmentCallback
 import android.view.*
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -65,7 +69,8 @@ class HomeFragment : Fragment(), RvAdapter.RvAction, RvAdapter.RvClick {
     }
 
     override fun callAction(contact: MyContact, position: Int) {
-        
+        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:myContact.number"));
+        activity?.startActivity(intent)
     }
 
 }
