@@ -3,12 +3,10 @@ package com.example.database.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.preference.PreferenceFragment.OnPreferenceStartFragmentCallback
 import android.view.*
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -25,7 +23,7 @@ class HomeFragment : Fragment(), RvAdapter.RvAction, RvAdapter.RvClick {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
         myDbHelper = MyDbHelper(binding.root.context)
         rvAdapter = RvAdapter(myDbHelper.getAllContacts() as ArrayList, this, this)
@@ -69,9 +67,8 @@ class HomeFragment : Fragment(), RvAdapter.RvAction, RvAdapter.RvClick {
     }
 
     override fun callAction(contact: MyContact, position: Int) {
-        val call = Intent(Intent.ACTION_DIAL)
-        call.data = Uri.parse("tel:" +"Number_to_call")
-        startActivity(call)
+        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:myContact.number"));
+        activity?.startActivity(intent)
     }
 
 }
