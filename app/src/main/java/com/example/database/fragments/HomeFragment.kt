@@ -67,8 +67,12 @@ class HomeFragment : Fragment(), RvAdapter.RvAction, RvAdapter.RvClick {
     }
 
     override fun callAction(contact: MyContact, position: Int) {
-        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:myContact.number"));
-        activity?.startActivity(intent)
-    }
+        try {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel: ${contact.number}"))
+            requireActivity().startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
 
+        }
+    }
 }
